@@ -21,11 +21,13 @@ ActiveRecord::Schema.define(version: 2019_07_14_044239) do
     t.datetime "invalid_at"
     t.string "error_message"
     t.string "error_code"
-    t.string "type"
-    t.string "recipient_account"
+    t.string "type", null: false
+    t.integer "recipient_account"
     t.bigint "customers_id"
+    t.bigint "credit_cards_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["credit_cards_id"], name: "index_backs_on_credit_cards_id"
     t.index ["customers_id"], name: "index_backs_on_customers_id"
   end
 
@@ -49,6 +51,8 @@ ActiveRecord::Schema.define(version: 2019_07_14_044239) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "backs", "credit_cards", column: "credit_cards_id"
   add_foreign_key "backs", "customers", column: "customers_id"
+  add_foreign_key "backs", "customers", column: "recipient_account"
   add_foreign_key "credit_cards", "customers", column: "customers_id"
 end
