@@ -14,9 +14,11 @@ module Api
       render json: customer
     end
 
-    def update; end
-
-    def delete; end
+    def update
+      customer = find_customer
+      customer.update(customer_params)
+      render_response(customer)
+    end
 
     private
 
