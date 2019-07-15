@@ -3,7 +3,6 @@ Rails.application.routes.draw do
     resources :customers, except: [:destroy] do
       resources :credit_cards
       resources :backs
-      resources :transactions
     end
   end
 end

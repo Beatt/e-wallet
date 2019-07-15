@@ -16,7 +16,7 @@ module Api
 
     def update
       customer = find_customer
-      customer.update(customer_params)
+      customer.update(customer_params) if customer.present?
       render_response(customer)
     end
 
@@ -34,6 +34,7 @@ module Api
 
     def render_response(customer)
       return render json: { body: "No se encontro el número de cuenta #{params[:id]}", status: :not_found } if customer.nil?
+      return render json: { errors: customer.errors.messages } if customer.present? && customer.errors.present?
       render json: customer
     end
   end
