@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Customer' do
-  context 'Create customer' do
+  context 'Create' do
 
     subject(:params) { { name: 'Gabriel', email: 'ggabriel@gmail.com' }}
 
