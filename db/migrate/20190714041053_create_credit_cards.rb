@@ -7,7 +7,7 @@ class CreateCreditCards < ActiveRecord::Migration[5.2]
       t.string :type
       t.string :country, default: 'MX'
       t.timestamps
-      t.references :customers, foreign_key: true
     end
+    add_reference :credit_cards, :customer, foreign_key: true
   end
 end

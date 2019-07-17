@@ -8,10 +8,10 @@ class CreateBacks < ActiveRecord::Migration[5.2]
       t.string :error_code
       t.string :type, null: false
       t.integer :recipient_account, null: true
-      t.references :customers, foreign_key: true
-      t.references :credit_cards, foreign_key: true, null: true
       t.timestamps null: false
     end
+    add_reference :backs, :customer, foreign_key: true
+    add_reference :backs, :credit_card, foreign_key: true, null: true
     add_foreign_key :backs, :customers, column: :recipient_account
   end
 end
