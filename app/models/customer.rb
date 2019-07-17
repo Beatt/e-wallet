@@ -1,3 +1,3 @@
 class Customer < ActiveRecord::Base
-  validates :name, :email, presence: true
+  validates :name, :email, :secure_key, presence: true
 end
