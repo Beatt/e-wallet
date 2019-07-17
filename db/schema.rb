@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_14_205024) do
+ActiveRecord::Schema.define(version: 2019_07_17_033806) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,24 +23,26 @@ ActiveRecord::Schema.define(version: 2019_07_14_205024) do
     t.string "error_code"
     t.string "type", null: false
     t.integer "recipient_account"
-    t.bigint "customers_id"
-    t.bigint "credit_cards_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["credit_cards_id"], name: "index_backs_on_credit_cards_id"
-    t.index ["customers_id"], name: "index_backs_on_customers_id"
+    t.bigint "customer_id"
+    t.bigint "credit_card_id"
+    t.index ["credit_card_id"], name: "index_backs_on_credit_card_id"
+    t.index ["customer_id"], name: "index_backs_on_customer_id"
   end
 
   create_table "credit_cards", force: :cascade do |t|
-    t.string "number"
-    t.string "expiration_date", limit: 5
-    t.string "brand"
-    t.string "type"
+    t.string "number", null: false
+    t.string "expiration_date"
+    t.string "brand", null: false
+    t.string "kind", null: false
     t.string "country", default: "MX"
+    t.string "last4", limit: 4, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "customers_id"
-    t.index ["customers_id"], name: "index_credit_cards_on_customers_id"
+    t.bigint "customer_id"
+    t.string "cvc", null: false
+    t.index ["customer_id"], name: "index_credit_cards_on_customer_id"
   end
 
   create_table "customers", force: :cascade do |t|
@@ -49,15 +51,16 @@ ActiveRecord::Schema.define(version: 2019_07_14_205024) do
     t.string "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "secure_key", null: false
   end
 
   create_table "general_accounts", force: :cascade do |t|
-    t.bigint "backs_id"
-    t.bigint "taxes_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["backs_id"], name: "index_general_accounts_on_backs_id"
-    t.index ["taxes_id"], name: "index_general_accounts_on_taxes_id"
+    t.bigint "back_id"
+    t.bigint "taxe_id"
+    t.index ["back_id"], name: "index_general_accounts_on_back_id"
+    t.index ["taxe_id"], name: "index_general_accounts_on_taxe_id"
   end
 
   create_table "taxes", force: :cascade do |t|
@@ -70,10 +73,10 @@ ActiveRecord::Schema.define(version: 2019_07_14_205024) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "backs", "credit_cards", column: "credit_cards_id"
-  add_foreign_key "backs", "customers", column: "customers_id"
+  add_foreign_key "backs", "credit_cards"
+  add_foreign_key "backs", "customers"
   add_foreign_key "backs", "customers", column: "recipient_account"
-  add_foreign_key "credit_cards", "customers", column: "customers_id"
-  add_foreign_key "general_accounts", "backs", column: "backs_id"
-  add_foreign_key "general_accounts", "taxes", column: "taxes_id"
+  add_foreign_key "credit_cards", "customers"
+  add_foreign_key "general_accounts", "backs"
+  add_foreign_key "general_accounts", "taxes", column: "taxe_id"
 end

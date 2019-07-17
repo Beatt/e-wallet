@@ -9,7 +9,7 @@ class CreateCustomerServices
     return customer if customer.present?
     customer = Customer.new(@params)
     customer.number_account = generate_number_account
-    customer.save ? customer : customer.errors.messages
+    customer.save ? customer : customer.errors.full_messages
   end
 
   private
