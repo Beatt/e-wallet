@@ -32,11 +32,12 @@ ActiveRecord::Schema.define(version: 2019_07_17_033806) do
   end
 
   create_table "credit_cards", force: :cascade do |t|
-    t.string "number"
+    t.string "number", null: false
     t.string "expiration_date"
-    t.string "brand"
-    t.string "type"
+    t.string "brand", null: false
+    t.string "kind", null: false
     t.string "country", default: "MX"
+    t.string "last4", limit: 4, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "customer_id"
