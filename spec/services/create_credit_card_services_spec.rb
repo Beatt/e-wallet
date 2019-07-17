@@ -22,7 +22,7 @@ RSpec.describe 'Credit card' do
     end
 
     it 'should add [n] credit cards by customer' do
-      @params = { brand: 'visa', kind: 'credit_card', expiration_date: '12/20', number: '2020321034120', cvc: '566', customer_id: @customer.id, country: 'MX' }
+      @params[:number] = '2020321034120'
       credit_card = CreateCreditCardServices.new(@params, @crypt_services).create
       expect(credit_card).not_to be_a_new(CreditCard)
       expect(CreditCard.count).to be > 1
