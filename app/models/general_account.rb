@@ -1,2 +1,2 @@
-class GeneralAccount < ApplicationRecord
+class GeneralAccount < ActiveRecord::Base
 end
