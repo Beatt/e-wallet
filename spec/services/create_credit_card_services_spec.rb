@@ -6,9 +6,10 @@ RSpec.describe 'Credit card' do
       secure_key = 'Hola1234'
       customer = CreateCustomerServices.new(name: 'Gabriel', email: 'gabriel@gmail.com', secure_key: secure_key).create
       crypt_services = CryptServices.new(customer.secure_key)
-      params = { brand: 'visa', expiration_date: '12/20', number: '2020321032010', cvc: '666', customer_id: customer.id }
+      params = { brand: 'visa', expiration_date: '12/20', number: '2020321032010', cvc: '5666', customer_id: customer.id }
       credit_card_services = CreateCreditCardServices.new(params, crypt_services)
       credit_card = credit_card_services.create
+      expect(credit_card).not_to be_a_new(CreditCard)
     end
   end
 end

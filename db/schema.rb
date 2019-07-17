@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_17_032009) do
+ActiveRecord::Schema.define(version: 2019_07_17_033806) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,14 +33,14 @@ ActiveRecord::Schema.define(version: 2019_07_17_032009) do
 
   create_table "credit_cards", force: :cascade do |t|
     t.string "number"
-    t.string "expiration_date", limit: 5
+    t.string "expiration_date"
     t.string "brand"
     t.string "type"
     t.string "country", default: "MX"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "customers_id"
-    t.string "cvc", limit: 4, null: false
+    t.string "cvc", null: false
     t.index ["customers_id"], name: "index_credit_cards_on_customers_id"
   end
 
