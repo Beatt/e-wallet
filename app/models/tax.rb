@@ -1,2 +1,2 @@
-class Tax < ApplicationRecord::Base
+class Tax < ActiveRecord::Base
 end
