@@ -15,12 +15,12 @@ class TransferServices
 
   private
 
+  def customer
+    Customer.find(@params[:customer_id])
+  end
+
   def create_general_account(transfer)
     tax = Tax.between_minimum_limit_value(@params[:value_in_cents].to_f)
     GeneralAccount.create(back_id: transfer.id, taxe_id: tax.id)
-  end
-
-  def customer
-    Customer.find(@params[:customer_id])
   end
 end
