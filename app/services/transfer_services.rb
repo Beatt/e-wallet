@@ -1,12 +1,14 @@
 class TransferServices
 
-  def initialize(params)
+  def initialize(params, customer)
     @params = params
+    @customer = customer
   end
 
   def process
     return ['Customer id obligatorio'] if @params[:customer_id].nil?
-    return ['Sin fondos'] if @params[:value_in_cents].to_f > customer.balance
+    return ['Sin fondos para transferir'] if @params[:value_in_cents].to_f > @customer.balance
+    assign_account_recipient
     transfer = Back::Transfer.new(@params)
     return transfer.errors.full_messages unless transfer.save
     create_general_account(transfer)
@@ -15,8 +17,12 @@ class TransferServices
 
   private
 
-  def customer
-    Customer.find(@params[:customer_id])
+  def assign_account_recipient
+    @params[:account_recipient] = customer_recipient.id
+  end
+
+  def customer_recipient
+    Customer.find_by(account_number: @params[:account_recipient])
   end
 
   def create_general_account(transfer)
