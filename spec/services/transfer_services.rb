@@ -21,7 +21,7 @@ RSpec.describe 'Backs' do
         customer_id: @customer.id,
         account_recipient: @receive_customer.id
       }
-      transfer = TransferServices.new(params).process
+      transfer = TransferServices.new(params, @customer).process
       expect(transfer).not_to be_a_new(Back::Transfer)
       expect(transfer.id.present?).to be_truthy
     end
@@ -32,9 +32,9 @@ RSpec.describe 'Backs' do
         customer_id: @customer.id,
         account_recipient: @receive_customer.id
       }
-      transfer = TransferServices.new(params).process
+      transfer = TransferServices.new(params, @customer).process
       expect(transfer).not_to be_a_new(Back::Transfer)
-      expect(transfer).to eq(['Sin fondos'])
+      expect(transfer).to eq(['Sin fondos para transferir'])
     end
 
     it 'should validate model customer id' do
@@ -43,7 +43,7 @@ RSpec.describe 'Backs' do
         customer_id: nil,
         account_recipient: nil
       }
-      transfer = TransferServices.new(params).process
+      transfer = TransferServices.new(params, @customer).process
       expect(transfer).not_to be_a_new(Back::Transfer)
       expect(transfer).to eq(["Customer id obligatorio"])
     end
