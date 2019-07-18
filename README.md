@@ -1,24 +1,28 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Objetivo:
+El objetivo de este ejercicio es evaluar la capacidad de análisis, definición de arquitectura y practicas de desarrollo que tiene un candidato
 
-Things you may want to cover:
+<h2>Installing</h2>
 
 * Ruby version
-
-* System dependencies
+<br/>
+2.5.1
 
 * Configuration
+<br/>
+bundle install
 
 * Database creation
-
-* Database initialization
+<br/>
+rails db:create
+<br/>
+rails db:migrate
+<br/>
+rails db:seed
 
 * How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+<br/>
+ALL - rspec spec/services
+<br/>
+Some - rspec/services/transfer_services.rb
