@@ -8,7 +8,7 @@ class CreateCustomerServices
     customer = customer_by_email
     return customer if customer.present?
     customer = Customer.new(@params)
-    customer.number_account = generate_number_account
+    customer.account_number = generate_account_number
     customer.save ? customer : customer.errors.full_messages
   end
 
@@ -19,7 +19,7 @@ class CreateCustomerServices
     nil
   end
 
-  def generate_number_account
+  def generate_account_number
     rand(100000..999999)
   end
 end
