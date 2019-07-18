@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 2019_07_17_033806) do
     t.string "error_message"
     t.string "error_code"
     t.string "type", null: false
-    t.integer "recipient_account"
+    t.integer "account_recipient"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "customer_id"
@@ -46,7 +46,7 @@ ActiveRecord::Schema.define(version: 2019_07_17_033806) do
   end
 
   create_table "customers", force: :cascade do |t|
-    t.string "number_account"
+    t.string "account_number"
     t.string "name"
     t.string "email"
     t.datetime "created_at", null: false
@@ -75,7 +75,7 @@ ActiveRecord::Schema.define(version: 2019_07_17_033806) do
 
   add_foreign_key "backs", "credit_cards"
   add_foreign_key "backs", "customers"
-  add_foreign_key "backs", "customers", column: "recipient_account"
+  add_foreign_key "backs", "customers", column: "account_recipient"
   add_foreign_key "credit_cards", "customers"
   add_foreign_key "general_accounts", "backs"
   add_foreign_key "general_accounts", "taxes", column: "taxe_id"

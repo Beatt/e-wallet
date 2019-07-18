@@ -27,7 +27,7 @@ module Api
     end
 
     def find_customer
-      Customer.find_by(number_account: params[:id])
+      Customer.find_by(account_number: params[:id])
     rescue ActiveRecord::RecordNotFound => _error
       nil
     end

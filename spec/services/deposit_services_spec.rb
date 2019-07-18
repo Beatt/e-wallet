@@ -2,13 +2,18 @@ require 'rails_helper'
 
 RSpec.describe 'Backs' do
   context 'Deposit gateway' do
+
+    before(:each) {
+      @customer = CreateCustomerServices.new(name: 'Gabriel', email: 'gabriel@gmail.com', secure_key: 'Hola1234').create
+      crypt_services = CryptServices.new(@customer.secure_key)
+      @credit_card = CreateCreditCardServices.new({ brand: 'visa', kind: 'credit_card', expiration_date: '12/20', number: '2020321032010', cvc: '566', customer_id: @customer.id, country: 'MX' }, crypt_services).create
+    }
+
     it 'should deposit successfully' do
-      customer = Customer.last
-      credit_card = customer.credit_cards.last
       value = 1000
-      deposit_gateway = Gateway.new(credit_card, value)
+      deposit_gateway = Gateway.new(@credit_card, value)
       allow(deposit_gateway).to receive(:auth).and_return(true)
-      params = { value_in_cents: value, customer_id: customer.id, credit_card_id: credit_card.id }
+      params = { value_in_cents: value, customer_id: @customer.id, credit_card_id: @credit_card.id }
       deposit_services = DepositServices.new(params, deposit_gateway)
       deposit = deposit_services.charge
       expect(deposit).not_to be_a_new(Back::Deposit)
@@ -16,12 +21,10 @@ RSpec.describe 'Backs' do
     end
 
     it 'should deposit failed' do
-      customer = Customer.last
-      credit_card = customer.credit_cards.last
       value = 1000
-      deposit_gateway = Gateway.new(credit_card, value)
+      deposit_gateway = Gateway.new(@credit_card, value)
       allow(deposit_gateway).to receive(:auth).and_return(false)
-      params = { value_in_cents: value, customer_id: customer.id, credit_card_id: credit_card.id }
+      params = { value_in_cents: value, customer_id: @customer.id, credit_card_id: @credit_card.id }
       deposit_services = DepositServices.new(params, deposit_gateway)
       deposit = deposit_services.charge
       expect(deposit).not_to be_a_new(Back::Deposit)
@@ -29,10 +32,8 @@ RSpec.describe 'Backs' do
     end
 
     it 'should validate fields' do
-      customer = Customer.last
-      credit_card = customer.credit_cards.last
       value = 1000
-      deposit_gateway = Gateway.new(credit_card, value)
+      deposit_gateway = Gateway.new(@credit_card, value)
       allow(deposit_gateway).to receive(:auth).and_return(true)
       params = { value_in_cents: nil, customer_id: nil, credit_card_id: nil }
       deposit_services = DepositServices.new(params, deposit_gateway)

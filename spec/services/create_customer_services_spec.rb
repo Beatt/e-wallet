@@ -12,7 +12,7 @@ RSpec.describe 'Customer' do
 
     it 'should create number account' do
       customer = CreateCustomerServices.new(params).create
-      expect(customer.number_account.to_i.is_a? Integer).to be_truthy
+      expect(customer.account_number.to_i.is_a? Integer).to be_truthy
     end
 
     it 'shouldn´t create a new customer with the same email' do
