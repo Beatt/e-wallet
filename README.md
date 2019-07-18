@@ -3,7 +3,7 @@
 Objetivo:
 El objetivo de este ejercicio es evaluar la capacidad de análisis, definición de arquitectura y practicas de desarrollo que tiene un candidato
 
-<h2>Installar</h2>
+<h2>Instalar</h2>
 
 <p>Ruby versión</p>
 <ul>
