@@ -5,24 +5,25 @@ El objetivo de este ejercicio es evaluar la capacidad de análisis, definició
 
 <h2>Installing</h2>
 
-* Ruby version
-<br/>
-2.5.1
+<p>Ruby version</p>
+<ul>
+    <li>2.5.1</li>
+</ul>
 
-* Configuration
-<br/>
-bundle install
+<p>Configuration</p>
+<ul>
+    <li>bundle install</li>
+</ul>
 
-* Database creation
-<br/>
-rails db:create
-<br/>
-rails db:migrate
-<br/>
-rails db:seed
+<p>Database creation</p>
+<ul>
+    <li>rails db:create</li>
+    <li>rails db:migrate</li>
+    <li>rails db:seed</li>
+</ul>
 
-* How to run the test suite
-<br/>
-ALL - rspec spec/services
-<br/>
-Some - rspec/services/transfer_services.rb
+<p>How to run the test suite</p>
+<ul>
+    <li>ALL - rspec spec/services</li>
+    <li>Some - rspec/services/transfer_services.rb</li>
+</ul>
