@@ -2,32 +2,50 @@ require 'rails_helper'
 
 RSpec.describe 'Backs' do
   context 'Transfer' do
+
+    before(:each) {
+      @customer = CreateCustomerServices.new(name: 'Gabriel', email: 'gabriel@gmail.com', secure_key: 'Hola1234').create
+      @receive_customer = CreateCustomerServices.new(name: 'Geovanni', email: 'geovanni@gmail.com', secure_key: 'Hola1234').create
+    }
+
     it 'should transfer successfully' do
-      receive_customer = CreateCustomerServices.new(name: 'Gabriel', email: 'gabriel@gmail.com', secure_key: 'Hola1234').create
-      customer = CreateCustomerServices.new(name: 'Geovanni', email: 'geovanni@donadora.mx', secure_key: 'Hola1234').create
-      crypt_services = CryptServices.new(customer.secure_key)
-      credit_card = CreateCreditCardServices.new({ brand: 'visa', kind: 'credit_card', expiration_date: '12/20', number: '2020321032010', cvc: '566', customer_id: customer.id, country: 'MX' }, crypt_services).create
+      value = 2000
+      deposit_gateway = Gateway.new(@customer.credit_cards.last, value)
+      allow(deposit_gateway).to receive(:auth).and_return(true)
+      params = { value_in_cents: value, customer_id: @customer.id, credit_card_id: @customer.credit_cards.last.id }
+      deposit_services = DepositServices.new(params, deposit_gateway)
+      deposit_services.charge
+
       params = {
         value_in_cents: 1000,
-        customer_id: receive_customer.id,
-        account_recipient: customer.id,
-        credit_card_id: credit_card.id
+        customer_id: @customer.id,
+        account_recipient: @receive_customer.id
       }
-      transfer = TransferServices.new(params).transfer
+      transfer = TransferServices.new(params).process
       expect(transfer).not_to be_a_new(Back::Transfer)
       expect(transfer.id.present?).to be_truthy
     end
-  end
-end
 
-class TransferServices
+    it 'shouldn´t transfer successfully without backs' do
+      params = {
+        value_in_cents: @customer.balance + 1,
+        customer_id: @customer.id,
+        account_recipient: @receive_customer.id
+      }
+      transfer = TransferServices.new(params).process
+      expect(transfer).not_to be_a_new(Back::Transfer)
+      expect(transfer).to eq(['Sin fondos'])
+    end
 
-  def initialize(params)
-    @params = params
-  end
-
-  def transfer
-    transfer = Back::Transfer.new(@params)
-    transfer.save ? transfer : transfer.errors.full_messages
+    it 'should validate model customer id' do
+      params = {
+        value_in_cents: nil,
+        customer_id: nil,
+        account_recipient: nil
+      }
+      transfer = TransferServices.new(params).process
+      expect(transfer).not_to be_a_new(Back::Transfer)
+      expect(transfer).to eq(["Customer id obligatorio"])
+    end
   end
 end
