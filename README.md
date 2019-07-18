@@ -36,20 +36,82 @@ El objetivo de este ejercicio es evaluar la capacidad de análisis, definició
 <h2>¿Cómo usar?</h2>
 
 <p><a href="https://ewalletconekta.herokuapp.com/api/customers">Recurso customer (api/customers)</a></p>
-<ul>
-    <li>GET</li>
-    <li>POST</li>
-    <li>PATCH</li>
-</ul>
+
+<pre>
+// POST
+api/customers
+{
+	"customer": {
+		"name": "Gabriel",
+		"email": "gabriel@gmail.com",
+		"secure_key": "Hola1234"
+	}
+}
+</pre>
+<pre>
+// PATCH
+api/customers/:account_number
+{
+	"customer": {
+		"name": "Gabriel Jiménez",
+		"email": "gabriel@gmail.com",
+		"secure_key": "Hola1234"
+	}
+}
+</pre>
+<pre>
+// GET 
+api/customers/:account_number
+</pre>
 
 <p><a href="https://ewalletconekta.herokuapp.com/api/customers/:account_number/credit_cards">Recurso credit card (api/customers/:account_number/credit_cards)</a></p>
-<ul>
-    <li>GET</li>
-    <li>POST</li>
-</ul>
+
+<pre>
+// POST
+api/customers/:account_number/credit_cards
+{
+	"credit_card": {
+		"brand": "visa",
+		"kind": "credit_card",
+		"expiration_date": "10/20",
+		"number": "203201203103",
+		"cvc": "123"
+	}
+}
+</pre>
+
+<pre>
+// GET
+api/customers/:account_number/credit_cards/:id
+</pre>
 
 <p><a href="https://ewalletconekta.herokuapp.com/api/customers/:account_number/backs">Recurso back (api/customers/:account_number/backs)</a></p>
-<ul>
-    <li>GET</li>
-    <li>POST</li>
-</ul>
+<em>value_in_cents: Monto a transferir o depositar</em>
+<em>account_recipient: Número de cuenta del cliente a transferir</em>
+<pre>
+// POST
+api/customers/:account_number/backs?type=deposit
+{
+	"back": {
+		"value_in_cents": 1000,
+		"credit_card_id": :credit_card_id
+	}
+}
+</pre>
+
+<pre>
+// POST
+api/customers/:account_number/backs?type=transfer
+{
+	"back": {
+		"value_in_cents": 1000,
+		"credit_card_id": 2,
+		"account_recipient": :account_number
+	}
+}
+</pre>
+
+<pre>
+// GET - HISTORIAL DE TRANSACCIONES
+api/customers/:account_number/backs
+</pre>
