@@ -32,3 +32,24 @@ El objetivo de este ejercicio es evaluar la capacidad de análisis, definició
 <ul>
     <li><a href="https://ewalletconekta.herokuapp.com/" target="_blank">Ir al demo</a></li>
 </ul>
+
+<h2>¿Cómo usar?</h2>
+
+<p><a href="https://ewalletconekta.herokuapp.com/api/customers">Recurso customer (api/customers)</a></p>
+<ul>
+    <li>GET</li>
+    <li>POST</li>
+    <li>PATCH</li>
+</ul>
+
+<p><a href="https://ewalletconekta.herokuapp.com/api/customers">Recurso credit card (api/customers/:account_number/credit_cards)</a></p>
+<ul>
+    <li>GET</li>
+    <li>POST</li>
+</ul>
+
+<p><a href="https://ewalletconekta.herokuapp.com/api/customers">Recurso back (api/customers/:account_number/backs)</a></p>
+<ul>
+    <li>GET</li>
+    <li>POST</li>
+</ul>
