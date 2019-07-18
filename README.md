@@ -42,13 +42,13 @@ El objetivo de este ejercicio es evaluar la capacidad de análisis, definició
     <li>PATCH</li>
 </ul>
 
-<p><a href="https://ewalletconekta.herokuapp.com/api/customers">Recurso credit card (api/customers/:account_number/credit_cards)</a></p>
+<p><a href="https://ewalletconekta.herokuapp.com/api/customers/:account_number/credit_cards">Recurso credit card (api/customers/:account_number/credit_cards)</a></p>
 <ul>
     <li>GET</li>
     <li>POST</li>
 </ul>
 
-<p><a href="https://ewalletconekta.herokuapp.com/api/customers">Recurso back (api/customers/:account_number/backs)</a></p>
+<p><a href="https://ewalletconekta.herokuapp.com/api/customers/:account_number/backs">Recurso back (api/customers/:account_number/backs)</a></p>
 <ul>
     <li>GET</li>
     <li>POST</li>
