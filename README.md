@@ -24,8 +24,8 @@ El objetivo de este ejercicio es evaluar la capacidad de análisis, definició
 
 <p>Como ejecutar el test suite</p>
 <ul>
-    <li>ALL - rspec spec/services</li>
-    <li>Some - rspec/services/transfer_services.rb</li>
+    <li>Todos - rspec spec/services</li>
+    <li>Alguno - rspec/services/transfer_services.rb</li>
 </ul>
 
 <h2>Demo</h2>
