@@ -5,7 +5,7 @@ class DepositServices
     @deposit_gateway = deposit_gateway
   end
 
-  def charge
+  def process
     resolve_gateway_response
     back = Back::Deposit.new(@params)
     back.save ? back : back.errors.full_messages

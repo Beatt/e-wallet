@@ -12,11 +12,11 @@ module Api
       params[:back][:customer_id] = customer.id
       back = case params[:type]
              when 'deposit'
-               DepositServices.new(back_params, deposit_gateway).charge
+               DepositServices.new(back_params, deposit_gateway).process
              when 'transfer'
                TransferServices.new(back_params, customer).process
              when 'withdraw'
-               nil
+               WithdrawServices.new(back_params, customer).process
              else
                ['Type no permitido']
              end

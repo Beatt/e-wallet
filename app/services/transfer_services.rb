@@ -6,8 +6,7 @@ class TransferServices
   end
 
   def process
-    return ['Customer id obligatorio'] if @params[:customer_id].nil?
-    return ['Sin fondos para transferir'] if @params[:value_in_cents].to_f > @customer.balance
+    return ['Sin fondos para transferir'] if @params[:value_in_cents].to_f > @customer.try(:balance)
     assign_account_recipient
     transfer = Back::Transfer.new(@params)
     return transfer.errors.full_messages unless transfer.save
@@ -18,7 +17,7 @@ class TransferServices
   private
 
   def assign_account_recipient
-    @params[:account_recipient] = customer_recipient.id
+    @params[:account_recipient] = customer_recipient.try(:id)
   end
 
   def customer_recipient
