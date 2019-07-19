@@ -112,6 +112,12 @@ api/customers/:account_number/backs?type=transfer
 </pre>
 
 <pre>
-// GET - HISTORIAL DE TRANSACCIONES
+// GET 
+
+- Historial de transacciones
 api/customers/:account_number/backs
+
+- Balance
+api/customers/:account_number/backs?scope=balance
+
 </pre>
