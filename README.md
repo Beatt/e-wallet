@@ -86,8 +86,8 @@ api/customers/:account_number/credit_cards/:id
 </pre>
 
 <p><a href="https://ewalletconekta.herokuapp.com/api/customers/:account_number/backs">Recurso back (api/customers/:account_number/backs)</a></p>
-<em>value_in_cents: Monto a transferir o depositar</em>
-<em>account_recipient: Número de cuenta del cliente a transferir</em>
+<p><em>value_in_cents: Monto a transferir o depositar</em></p>
+<p><em>account_recipient: Número de cuenta del cliente a transferir</em></p>
 <pre>
 // POST
 api/customers/:account_number/backs?type=deposit
