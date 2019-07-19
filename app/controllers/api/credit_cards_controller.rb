@@ -21,10 +21,6 @@ module Api
 
     private
 
-    def customer
-      Customer.find_by(account_number: params[:customer_id])
-    end
-
     def credit_card_params
       params.require(:credit_card).permit(:brand, :kind, :expiration_date, :number, :cvc, :customer_id)
     end

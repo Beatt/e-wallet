@@ -34,10 +34,6 @@ module Api
       customer.credit_cards.where(id: params[:back][:credit_card_id])
     end
 
-    def customer
-      Customer.find_by(account_number: params[:customer_id])
-    end
-
     def back_params
       params.require(:back).permit(:value_in_cents, :credit_card_id, :customer_id, :account_recipient)
     end
