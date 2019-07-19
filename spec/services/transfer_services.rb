@@ -14,7 +14,7 @@ RSpec.describe 'Backs' do
       allow(deposit_gateway).to receive(:auth).and_return(true)
       params = { value_in_cents: value, customer_id: @customer.id, credit_card_id: @customer.credit_cards.last.id }
       deposit_services = DepositServices.new(params, deposit_gateway)
-      deposit_services.charge
+      deposit_services.process
 
       params = {
         value_in_cents: 1000,
@@ -37,7 +37,7 @@ RSpec.describe 'Backs' do
       expect(transfer).to eq(['Sin fondos para transferir'])
     end
 
-    it 'should validate model customer id' do
+    it 'should validate customer model' do
       params = {
         value_in_cents: nil,
         customer_id: nil,
@@ -45,7 +45,7 @@ RSpec.describe 'Backs' do
       }
       transfer = TransferServices.new(params, @customer).process
       expect(transfer).not_to be_a_new(Back::Transfer)
-      expect(transfer).to eq(["Customer id obligatorio"])
+      expect(transfer).to eq(["Customer can't be blank", "Value in cents can't be blank", "Account recipient can't be blank"])
     end
   end
 end

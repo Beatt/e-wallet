@@ -3,34 +3,35 @@ module Api
     skip_before_action :verify_authenticity_token
 
     def index
+      return render json: balance_json if params[:scope] == 'balance'
       backs = customer.backs
-      render json: backs, status: 200
+      render json: backs
     end
 
     def create
-      deposit_gateway = Gateway.new(@credit_card, params[:back][:value_in_cents])
+      gateway = Gateway.new(@credit_card, params[:back][:value_in_cents])
       params[:back][:customer_id] = customer.id
       back = case params[:type]
              when 'deposit'
-               DepositServices.new(back_params, deposit_gateway).charge
+               DepositServices.new(back_params, gateway).process
              when 'transfer'
                TransferServices.new(back_params, customer).process
              when 'withdraw'
-               nil
+               WithdrawServices.new(back_params, customer).process
              else
                ['Type no permitido']
              end
-      render json: back, status: 200
+      render json: back
     end
 
     private
 
-    def credit_card
-      customer.credit_cards.where(id: params[:back][:credit_card_id])
+    def balance_json
+      { balance: customer.balance, income: customer.income, outcome: customer.outcome }
     end
 
-    def customer
-      Customer.find_by(account_number: params[:customer_id])
+    def credit_card
+      customer.credit_cards.where(id: params[:back][:credit_card_id])
     end
 
     def back_params
