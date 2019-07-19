@@ -8,7 +8,7 @@ class Customer < ActiveRecord::Base
 
   def income
     query = <<-SQL
-      (kind = 'Back::Deposit' AND approved_at IS NOT NULL AND customer_id = :customer_id) OR
+      (type = 'Back::Deposit' AND approved_at IS NOT NULL AND customer_id = :customer_id) OR
       account_recipient = :customer_id
     SQL
     Back.where(query, customer_id: id).sum('value_in_cents').to_f / 100 || 0
@@ -16,8 +16,8 @@ class Customer < ActiveRecord::Base
 
   def outcome
     query = <<-SQL
-      (kind = 'Back::Withdraw' AND customer_id = :customer_id) OR
-      (kind = 'Back::Transfer' AND customer_id = :customer_id)
+      (type = 'Back::Withdraw' AND customer_id = :customer_id) OR
+      (type = 'Back::Transfer' AND customer_id = :customer_id)
     SQL
     Back.where(query, customer_id: id).sum('value_in_cents').to_f / 100 || 0
   end
