@@ -4,19 +4,19 @@ module Api
 
     def index
       credit_cards = customer.credit_cards
-      render json: credit_cards, status: 201
+      render json: credit_cards
     end
 
     def show
       credit_card = CreditCard.find(params[:id])
-      render json: credit_card, status: 201
+      render json: credit_card
     end
 
     def create
       crypt_services = CryptServices.new(customer.secure_key)
       params[:credit_card][:customer_id] = customer.id
       credit_card = CreateCreditCardServices.new(credit_card_params, crypt_services).create
-      render json: credit_card, status: 200
+      render json: credit_card
     end
 
     private

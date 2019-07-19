@@ -5,7 +5,7 @@ module Api
     def index
       return render json: balance_json if params[:scope] == 'balance'
       backs = customer.backs
-      render json: backs, status: 200
+      render json: backs
     end
 
     def create
@@ -21,7 +21,7 @@ module Api
              else
                ['Type no permitido']
              end
-      render json: back, status: 200
+      render json: back
     end
 
     private
