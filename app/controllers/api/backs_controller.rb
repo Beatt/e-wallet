@@ -3,6 +3,7 @@ module Api
     skip_before_action :verify_authenticity_token
 
     def index
+      return render json: balance_json if params[:scope] == 'balance'
       backs = customer.backs
       render json: backs, status: 200
     end
@@ -24,6 +25,10 @@ module Api
     end
 
     private
+
+    def balance_json
+      { balance: customer.balance, income: customer.income, outcome: customer.outcome }
+    end
 
     def credit_card
       customer.credit_cards.where(id: params[:back][:credit_card_id])
