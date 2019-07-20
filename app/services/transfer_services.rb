@@ -25,7 +25,9 @@ class TransferServices
   end
 
   def assign_account_recipient
-    @params[:account_recipient] = customer_recipient.try(:id)
+    @params[:account_recipient] = customer_recipient.id
+  rescue StandardError => e
+    nil
   end
 
   def customer_recipient
