@@ -35,7 +35,7 @@ module Api
     end
 
     def back_params
-      params.require(:back).permit(:value_in_cents, :credit_card_id, :customer_id, :account_recipient)
+      params.require(:back).permit(:value_in_cents, :credit_card_id, :customer_id, :account_recipient, :tax_id)
     end
   end
 end
