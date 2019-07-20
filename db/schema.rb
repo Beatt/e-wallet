@@ -27,8 +27,10 @@ ActiveRecord::Schema.define(version: 2019_07_17_033806) do
     t.datetime "updated_at", null: false
     t.bigint "customer_id"
     t.bigint "credit_card_id"
+    t.bigint "tax_id"
     t.index ["credit_card_id"], name: "index_backs_on_credit_card_id"
     t.index ["customer_id"], name: "index_backs_on_customer_id"
+    t.index ["tax_id"], name: "index_backs_on_tax_id"
   end
 
   create_table "credit_cards", force: :cascade do |t|
@@ -58,9 +60,7 @@ ActiveRecord::Schema.define(version: 2019_07_17_033806) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "back_id"
-    t.bigint "taxe_id"
     t.index ["back_id"], name: "index_general_accounts_on_back_id"
-    t.index ["taxe_id"], name: "index_general_accounts_on_taxe_id"
   end
 
   create_table "taxes", force: :cascade do |t|
@@ -76,7 +76,7 @@ ActiveRecord::Schema.define(version: 2019_07_17_033806) do
   add_foreign_key "backs", "credit_cards"
   add_foreign_key "backs", "customers"
   add_foreign_key "backs", "customers", column: "account_recipient"
+  add_foreign_key "backs", "taxes"
   add_foreign_key "credit_cards", "customers"
   add_foreign_key "general_accounts", "backs"
-  add_foreign_key "general_accounts", "taxes", column: "taxe_id"
 end
