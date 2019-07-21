@@ -6,7 +6,7 @@ class TransferServices
   end
 
   def process
-    return ['Sin fondos para transferir'] if @params[:value_in_cents].to_f > @customer.try(:balance)
+    return ['Sin fondos para transferir'] unless with_funds?
     assign_values
     create_transfer
     return @transfer.errors.full_messages unless @transfer.save
@@ -14,6 +14,10 @@ class TransferServices
   end
 
   private
+
+  def with_funds?
+    @params[:value_in_cents].to_f < @customer.try(:balance)
+  end
 
   def assign_values
     assign_account_recipient
@@ -43,7 +47,7 @@ class TransferServices
   end
 
   def value_in_cents_less_tax(tax)
-    @params[:value_in_cents] - ((@params[:value_in_cents] * tax.percentage) + tax.fixed_rate)
+    @params[:value_in_cents].to_f - ((@params[:value_in_cents].to_f * tax.percentage_value) + tax.fixed_rate)
   end
 
   def create_general_account

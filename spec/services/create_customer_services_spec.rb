@@ -1,11 +1,11 @@
 require 'rails_helper'
 
-RSpec.describe 'Customer' do
-  context 'Create' do
+RSpec.describe 'Customer services' do
+  context 'when create successfully' do
 
     subject(:params) { { name: 'Gabriel', email: 'ggabriel@gmail.com'}}
 
-    it 'should create customer successfully' do
+    it 'should create customer' do
       customer = CreateCustomerServices.new(params).create
       expect(customer).not_to be_a_new(Customer)
     end
@@ -22,11 +22,13 @@ RSpec.describe 'Customer' do
       expect(customer_1).not_to be_a_new(Customer)
       expect(customer_2).to eq(customer_1)
     end
+  end
 
-    it 'should show errors when customer save failed' do
+  context 'when create failed' do
+    it 'should show errors messages' do
       customer = CreateCustomerServices.new(name: 'Juan', email: nil).create
       expect(customer).to eq(["Email can't be blank"])
     end
-
   end
+
 end
