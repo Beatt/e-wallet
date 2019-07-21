@@ -4,10 +4,9 @@ RSpec.describe 'Backs' do
   context 'Transfer' do
 
     before(:each) {
-      @customer = CreateCustomerServices.new(name: 'Gabriel', email: 'gabriel@gmail.com', secure_key: 'Hola1234').create
-      @receive_customer = CreateCustomerServices.new(name: 'Geovanni', email: 'geovanni@gmail.com', secure_key: 'Hola1234').create
-      crypt_services = CryptServices.new(@customer.secure_key)
-      @credit_card = CreateCreditCardServices.new({ brand: 'visa', kind: 'credit_card', expiration_date: '12/20', number: '2020321032010', cvc: '566', customer_id: @customer.id, country: 'MX' }, crypt_services).create
+      @customer = CreateCustomerServices.new(name: 'Gabriel', email: 'gabriel@gmail.com').create
+      @receive_customer = CreateCustomerServices.new(name: 'Geovanni', email: 'geovanni@gmail.com').create
+      @credit_card = CreateCreditCardServices.new({ brand: 'visa', kind: 'credit_card', expiration_date: '12/20', number: '2020321032010', cvc: '566', customer_id: @customer.id, country: 'MX' }).create
     }
 
     it 'should transfer successfully' do

@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'Customer' do
   context 'Create' do
 
-    subject(:params) { { name: 'Gabriel', email: 'ggabriel@gmail.com', secure_key: 'hi' }}
+    subject(:params) { { name: 'Gabriel', email: 'ggabriel@gmail.com'}}
 
     it 'should create customer successfully' do
       customer = CreateCustomerServices.new(params).create
@@ -25,7 +25,7 @@ RSpec.describe 'Customer' do
 
     it 'should show errors when customer save failed' do
       customer = CreateCustomerServices.new(name: 'Juan', email: nil).create
-      expect(customer).to eq(["Email can't be blank", "Secure key can't be blank"])
+      expect(customer).to eq(["Email can't be blank"])
     end
 
   end

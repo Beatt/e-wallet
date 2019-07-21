@@ -13,9 +13,8 @@ module Api
     end
 
     def create
-      crypt_services = CryptServices.new(customer.secure_key)
       params[:credit_card][:customer_id] = customer.id
-      credit_card = CreateCreditCardServices.new(credit_card_params, crypt_services).create
+      credit_card = CreateCreditCardServices.new(credit_card_params).create
       render json: credit_card
     end
 

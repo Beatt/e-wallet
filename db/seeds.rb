@@ -12,8 +12,7 @@ Tax.create!(name: '5,000 > x <= 10,000', limit_value: 10000, minimum_value: 5000
 Tax.create!(name: '10,000 > x', limit_value: 10000000, minimum_value: 10000, percentage: '100', fixed_rate: '3')
 
 p 'Seeding customer'
-customer = CreateCustomerServices.new(name: 'Gabriel', email: 'ggabriel@gmail.com', secure_key: 'Hola1234' ).create
-crypt_services = CryptServices.new(customer.secure_key)
+customer = CreateCustomerServices.new(name: 'Gabriel', email: 'ggabriel@gmail.com').create
 credit_card_params = {
   brand: 'visa',
   kind: 'credit_card',
@@ -23,4 +22,4 @@ credit_card_params = {
   customer_id: customer.id,
   country: 'MX'
 }
-CreateCreditCardServices.new(credit_card_params, crypt_services).create
+CreateCreditCardServices.new(credit_card_params).create

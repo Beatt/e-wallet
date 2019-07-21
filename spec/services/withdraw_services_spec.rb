@@ -4,8 +4,7 @@ RSpec.describe 'Back' do
   context 'Withdraw' do
 
     before(:each) {
-      @customer = CreateCustomerServices.new(name: 'Gabriel', email: 'gabriel@gmail.com', secure_key: 'Hola1234').create
-      @crypt_services = CryptServices.new(@customer.secure_key)
+      @customer = CreateCustomerServices.new(name: 'Gabriel', email: 'gabriel@gmail.com').create
       @params = {
         brand: 'visa',
         kind: 'credit_card',
@@ -15,7 +14,7 @@ RSpec.describe 'Back' do
         customer_id: @customer.id,
         country: 'MX'
       }
-      CreateCreditCardServices.new(@params, @crypt_services).create
+      CreateCreditCardServices.new(@params).create
     }
 
     it 'should withdraw funds successfully' do
