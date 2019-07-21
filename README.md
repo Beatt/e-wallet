@@ -78,15 +78,16 @@ api/customers/:account_number/credit_cards/:id
 </pre>
 
 <p><a href="https://ewalletconekta.herokuapp.com/api/customers/:account_number/backs">Recurso back (api/customers/:account_number/backs)</a></p>
-<p><em>value_in_cents: Monto a transferir o depositar</em></p>
-<p><em>account_recipient: Número de cuenta del cliente a transferir</em></p>
+<p><em>value_in_cents: Monto a transferir o depositar.</em></p>
+<p><em>account_recipient: Número de cuenta del cliente a transferir.</em></p>
+<p><em>credit_card_id: Tarjeta para abonar o hacer un cargo.</em></p>
 <pre>
 // POST
 api/customers/:account_number/backs?type=deposit
 {
 	"back": {
 		"value_in_cents": 1000,
-		"credit_card_id": :credit_card_id
+		"credit_card_id": 1
 	}
 }
 </pre>
@@ -99,6 +100,17 @@ api/customers/:account_number/backs?type=transfer
 		"value_in_cents": 1000,
 		"credit_card_id": 2,
 		"account_recipient": :account_number
+	}
+}
+</pre>
+
+<pre>
+// POST
+api/customers/:account_number/backs?type=withdraw
+{
+	"back": {
+		"value_in_cents": 1000,
+		"credit_card_id": 1
 	}
 }
 </pre>
