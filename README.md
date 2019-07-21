@@ -22,12 +22,6 @@ Evaluar la capacidad de análisis, definición de arquitectura y practicas de 
     <li>rails db:seed</li>
 </ul>
 
-<p>Como ejecutar el test suite</p>
-<ul>
-    <li>Todos - rspec spec/services</li>
-    <li>Alguno - rspec/services/transfer_services.rb</li>
-</ul>
-
 <h2>Demo</h2>
 <ul>
     <li><a href="https://ewalletconekta.herokuapp.com/" target="_blank">Ir al demo</a></li>
@@ -119,3 +113,11 @@ api/customers/:account_number/backs
 api/customers/:account_number/backs?scope=balance
 
 </pre>
+
+<p>Como ejecutar el test suite</p>
+<ul>
+    <li>rails db:test:prepare</li>
+    <li>rails RAILS_ENV=test db:seed</li>
+    <li>Todos - rspec spec/services</li>
+    <li>Alguno - rspec/services/transfer_services.rb</li>
+</ul>
