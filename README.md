@@ -114,10 +114,15 @@ api/customers/:account_number/backs?scope=balance
 
 </pre>
 
-<p>Como ejecutar el test suite</p>
+<h2>Test</h2>
+<p>Configuración</p>
 <ul>
     <li>rails db:test:prepare</li>
     <li>rails RAILS_ENV=test db:seed</li>
+</ul>
+
+<p>Ejecutar</p>
+<ul>
     <li>Todos - rspec spec/services</li>
     <li>Alguno - rspec/services/transfer_services.rb</li>
 </ul>
