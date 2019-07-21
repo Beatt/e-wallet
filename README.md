@@ -43,8 +43,7 @@ api/customers
 {
 	"customer": {
 		"name": "Gabriel",
-		"email": "gabriel@gmail.com",
-		"secure_key": "Hola1234"
+		"email": "gabriel@gmail.com"
 	}
 }
 </pre>
@@ -54,8 +53,7 @@ api/customers/:account_number
 {
 	"customer": {
 		"name": "Gabriel Jiménez",
-		"email": "gabriel@gmail.com",
-		"secure_key": "Hola1234"
+		"email": "gabriel@gmail.com"
 	}
 }
 </pre>
