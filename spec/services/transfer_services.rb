@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Transfer' do
+RSpec.describe 'Transfer services' do
 
   let(:customer) { CreateCustomerServices.new(name: 'Gabriel', email: 'gabriel@gmail.com').create }
   let(:receive_customer) { CreateCustomerServices.new(name: 'Geovanni', email: 'geovanni@gmail.com').create }
