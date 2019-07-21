@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Crypt' do
+RSpec.describe 'Crypt services' do
   context 'encrypt' do
     it 'should encrypt data successfully' do
       data = '302030402'

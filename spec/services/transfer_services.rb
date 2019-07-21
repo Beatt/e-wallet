@@ -4,7 +4,7 @@ RSpec.describe 'Transfer services' do
 
   let(:customer) { CreateCustomerServices.new(name: 'Gabriel', email: 'gabriel@gmail.com').create }
   let(:receive_customer) { CreateCustomerServices.new(name: 'Geovanni', email: 'geovanni@gmail.com').create }
-  let(:credit_card) { @credit_card = CreateCreditCardServices.new({ brand: 'visa', kind: 'credit_card', expiration_date: '12/20', number: '2020321032010', cvc: '566', customer_id: customer.id, country: 'MX' }).create }
+  let(:credit_card) { CreateCreditCardServices.new(brand: 'visa', kind: 'credit_card', expiration_date: '12/20', number: '2020321032010', cvc: '566', customer_id: customer.id, country: 'MX').create }
 
   context 'when transfer is success' do
 
@@ -79,7 +79,7 @@ RSpec.describe 'Transfer services' do
 
   context 'when transfer is failed' do
 
-    it 'shouldn´t transfer successfully without backs' do
+    it 'shouldn´t transfer' do
       params = {
         value_in_cents: customer.balance + 1,
         customer_id: customer.id,
@@ -90,7 +90,7 @@ RSpec.describe 'Transfer services' do
       expect(transfer).to eq(['Sin fondos para transferir'])
     end
 
-    it 'should validate customer model' do
+    it 'should show errors messages' do
       params = {
         value_in_cents: nil,
         customer_id: nil,
@@ -100,7 +100,6 @@ RSpec.describe 'Transfer services' do
       expect(transfer).not_to be_a_new(Back::Transfer)
       expect(transfer).to eq(["Tax must exist", "Customer can't be blank", "Value in cents can't be blank", "Account recipient can't be blank", "Tax can't be blank"])
     end
-
   end
 
   def create_deposit(value)

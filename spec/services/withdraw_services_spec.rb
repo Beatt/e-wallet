@@ -6,7 +6,7 @@ RSpec.describe 'Withdraw services' do
 
   context 'when withdraw fund successfully' do
 
-    it 'should withdraw funds successfully' do
+    it 'should create a withdraw' do
       CreateCreditCardServices.new(
         brand: 'visa',
         kind: 'credit_card',
@@ -31,7 +31,7 @@ RSpec.describe 'Withdraw services' do
   end
 
   context 'when withdraw fund fail' do
-    it 'shouldn´t withdraw funds successfully' do
+    it 'shouldn´t create a withdraw' do
       params = {
         value_in_cents: customer.balance + 1,
         customer_id: customer.id,
@@ -41,7 +41,7 @@ RSpec.describe 'Withdraw services' do
       expect(withdraw).to eq(['Sin fondos para retirar'])
     end
 
-    it 'should validate withdraw model' do
+    it 'should show errors messages' do
       params = {
         value_in_cents: nil,
         customer_id: nil,
