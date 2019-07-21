@@ -75,6 +75,7 @@ api/customers/:account_number/credit_cards
 <pre>
 // GET
 api/customers/:account_number/credit_cards/:id
+api/customers/:account_number/credit_cards
 </pre>
 
 <p><a href="https://ewalletconekta.herokuapp.com/api/customers/:account_number/backs">Recurso back (api/customers/:account_number/backs)</a></p>
@@ -98,7 +99,7 @@ api/customers/:account_number/backs?type=transfer
 {
 	"back": {
 		"value_in_cents": 1000,
-		"credit_card_id": 2,
+		"credit_card_id": 1,
 		"account_recipient": :account_number
 	}
 }
