@@ -26,6 +26,31 @@ Evaluar la capacidad de análisis, definición de arquitectura y practicas de 
 <ul>
     <li><a href="https://ewalletconekta.herokuapp.com/" target="_blank">Ir al demo</a></li>
 </ul>
+<p>Datos de prueba</p>
+<pre>
+// Customers
+{
+    "id": 1,
+    "account_number": "935205",
+    "name": "Gabriel"
+}
+{
+    "id": 2,
+    "account_number": "637424",
+    "name": "Geovanni"
+}
+</pre>
+<pre>
+// Credit cards
+{
+    "id": 2,
+    "customer_id": 1
+}
+{
+    "id": 1,
+    "customer_id": 2
+}
+</pre>
 
 <h2>¿Cómo usar?</h2>
 
@@ -88,7 +113,7 @@ api/customers/:account_number/backs?type=deposit
 {
 	"back": {
 		"value_in_cents": 1000,
-		"credit_card_id": 1
+		"credit_card_id": :credit_card_id 
 	}
 }
 </pre>
@@ -99,7 +124,7 @@ api/customers/:account_number/backs?type=transfer
 {
 	"back": {
 		"value_in_cents": 1000,
-		"credit_card_id": 1,
+		"credit_card_id": :credit_card_id,
 		"account_recipient": :account_number
 	}
 }
@@ -111,7 +136,7 @@ api/customers/:account_number/backs?type=withdraw
 {
 	"back": {
 		"value_in_cents": 1000,
-		"credit_card_id": 1
+		"credit_card_id": :credit_card_id
 	}
 }
 </pre>
