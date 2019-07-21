@@ -10,10 +10,9 @@ RSpec.describe 'Backs' do
 
     it 'should deposit successfully' do
       value = 1000
-      deposit_gateway = Gateway.new(@credit_card, value)
-      allow(deposit_gateway).to receive(:auth).and_return(true)
+      allow(Gateway).to receive(:auth?).and_return(true)
       params = { value_in_cents: value, customer_id: @customer.id, credit_card_id: @credit_card.id }
-      deposit_services = DepositServices.new(params, deposit_gateway)
+      deposit_services = DepositServices.new(params)
       deposit = deposit_services.process
       expect(deposit).not_to be_a_new(Back::Deposit)
       expect(deposit.approved_at.present?).to be_truthy
@@ -21,21 +20,18 @@ RSpec.describe 'Backs' do
 
     it 'should deposit failed' do
       value = 1000
-      deposit_gateway = Gateway.new(@credit_card, value)
-      allow(deposit_gateway).to receive(:auth).and_return(false)
+      allow(Gateway).to receive(:auth?).and_return(false)
       params = { value_in_cents: value, customer_id: @customer.id, credit_card_id: @credit_card.id }
-      deposit_services = DepositServices.new(params, deposit_gateway)
+      deposit_services = DepositServices.new(params)
       deposit = deposit_services.process
       expect(deposit).not_to be_a_new(Back::Deposit)
       expect(deposit.invalid_at.present?).to be_truthy
     end
 
     it 'should validate fields' do
-      value = 1000
-      deposit_gateway = Gateway.new(@credit_card, value)
-      allow(deposit_gateway).to receive(:auth).and_return(true)
+      allow(Gateway).to receive(:auth?).and_return(true)
       params = { value_in_cents: nil, customer_id: nil, credit_card_id: nil }
-      deposit_services = DepositServices.new(params, deposit_gateway)
+      deposit_services = DepositServices.new(params)
       deposit = deposit_services.process
       expect(deposit).not_to be_a_new(Back::Deposit)
       expect(deposit).to eq(["Customer can't be blank", "Credit card can't be blank", "Value in cents can't be blank"])

@@ -19,10 +19,9 @@ RSpec.describe 'Back' do
 
     it 'should withdraw funds successfully' do
       value = 2000
-      deposit_gateway = Gateway.new(@customer.credit_cards.last, value)
-      allow(deposit_gateway).to receive(:auth).and_return(true)
+      allow(Gateway).to receive(:auth?).and_return(true)
       params = { value_in_cents: value, customer_id: @customer.id, credit_card_id: @customer.credit_cards.last.id }
-      deposit_services = DepositServices.new(params, deposit_gateway)
+      deposit_services = DepositServices.new(params)
       deposit_services.process
 
       params = {
@@ -30,6 +29,7 @@ RSpec.describe 'Back' do
         customer_id: @customer.id,
         credit_card_id: @customer.credit_cards.last.id
       }
+      allow(Gateway).to receive(:auth?).and_return(true)
       withdraw = WithdrawServices.new(params, @customer).process
       expect(withdraw).not_to be_a_new(Back::Withdraw)
       expect(withdraw.id.present?).to be_truthy
@@ -51,6 +51,7 @@ RSpec.describe 'Back' do
         customer_id: nil,
         credit_card_id: nil
       }
+      allow(Gateway).to receive(:auth?).and_return(true)
       withdraw = WithdrawServices.new(params, @customer).process
       expect(withdraw).to eq(["Customer can't be blank", "Value in cents can't be blank", "Credit card can't be blank"])
     end

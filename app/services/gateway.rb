@@ -1,11 +1,7 @@
 class Gateway
-
-  def initialize(credit_card, value)
-    @credit_card = credit_card
-    @value = value
-  end
-
-  def auth
-    rand(0...10) < 7
+  class << self
+    def auth?(credit_card, value)
+      rand(0...10) < 7
+    end
   end
 end
