@@ -9,11 +9,10 @@ module Api
     end
 
     def create
-      gateway = Gateway.new(@credit_card, params[:back][:value_in_cents])
       params[:back][:customer_id] = customer.id
       back = case params[:type]
              when 'deposit'
-               DepositServices.new(back_params, gateway).process
+               DepositServices.new(back_params).process
              when 'transfer'
                TransferServices.new(back_params, customer).process
              when 'withdraw'
