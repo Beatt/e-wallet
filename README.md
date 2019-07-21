@@ -124,7 +124,6 @@ api/customers/:account_number/backs?type=transfer
 {
 	"back": {
 		"value_in_cents": 1000,
-		"credit_card_id": :credit_card_id,
 		"account_recipient": :account_number
 	}
 }
