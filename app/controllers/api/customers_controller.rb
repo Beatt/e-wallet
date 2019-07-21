@@ -23,7 +23,7 @@ module Api
     private
 
     def customer_params
-      params.require(:customer).permit(:name, :email, :secure_key)
+      params.require(:customer).permit(:name, :email)
     end
 
     def find_customer

@@ -1,8 +1,7 @@
 class CreateCreditCardServices
 
-  def initialize(params, crypt_services)
+  def initialize(params)
     @params = params
-    @crypt_services = crypt_services
     @params[:last4] = resolve_last4
   end
 
@@ -24,8 +23,8 @@ class CreateCreditCardServices
   end
 
   def encrypt_fields(credit_card)
-    credit_card.expiration_date = @crypt_services.encrypt(@params[:expiration_date]) if @params[:expiration_date]
-    credit_card.number = @crypt_services.encrypt(@params[:number]) if @params[:number]
-    credit_card.cvc = @crypt_services.encrypt(@params[:cvc]) if @params[:cvc]
+    credit_card.expiration_date = CryptServices.encrypt(@params[:expiration_date]) if @params[:expiration_date]
+    credit_card.number = CryptServices.encrypt(@params[:number]) if @params[:number]
+    credit_card.cvc = CryptServices.encrypt(@params[:cvc]) if @params[:cvc]
   end
 end

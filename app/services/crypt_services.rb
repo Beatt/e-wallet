@@ -1,17 +1,19 @@
 class CryptServices
 
-  def initialize(secret_key)
-    key = ActiveSupport::KeyGenerator.new('password').generate_key(secret_key, 32)
-    @crypt = ActiveSupport::MessageEncryptor.new(key)
-  end
+  secret_key_credit_cards = Rails.application.credentials[:secret_key_credit_cards]
+  key = ActiveSupport::KeyGenerator.new('password').generate_key(secret_key_credit_cards, 32)
+  @crypt = ActiveSupport::MessageEncryptor.new(key)
 
-  def encrypt(data)
-    @crypt.encrypt_and_sign(data)
-  end
+  class << self
 
-  def decrypt(data)
-    @crypt.decrypt_and_verify(data)
-  rescue StandardError => e
-    :key_invalidate
+    def encrypt(data)
+      @crypt.encrypt_and_sign(data)
+    end
+
+    def decrypt(data)
+      @crypt.decrypt_and_verify(data)
+    rescue StandardError => e
+      :key_invalidate
+    end
   end
 end
