@@ -47,7 +47,7 @@ class TransferServices
   end
 
   def value_in_cents_less_tax(tax)
-    @params[:value_in_cents] - ((@params[:value_in_cents] * tax.percentage) + tax.fixed_rate)
+    @params[:value_in_cents].to_f - ((@params[:value_in_cents].to_f * tax.percentage_value) + tax.fixed_rate)
   end
 
   def create_general_account
