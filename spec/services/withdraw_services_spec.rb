@@ -7,6 +7,8 @@ RSpec.describe 'Withdraw services' do
   context 'when withdraw fund successfully' do
 
     it 'should create a withdraw' do
+      create_depositg
+
       CreateCreditCardServices.new(
         brand: 'visa',
         kind: 'credit_card',
