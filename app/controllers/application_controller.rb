@@ -18,8 +18,13 @@ class ApplicationController < ActionController::Base
 
   def authenticate
     return true if request.path == customers_path && request.method == 'POST'
-    customer = Customer.find_by(access_token: params[:token].gsub(/\s+/, "+").to_s) if params[:token].present?
+    customer = Customer.find_by(account_number: parent, access_token: params[:token].gsub(/\s+/, "+").to_s) if params[:token].present?
     return render json: 'Bad credentials'.to_json, status: :unauthorized if customer.nil?
     true
+  end
+
+  def parent
+    params[:id] ||
+    params[:customer_id]
   end
 end
