@@ -56,6 +56,7 @@ ActiveRecord::Schema.define(version: 2019_07_21_024347) do
   end
 
   create_table "general_accounts", force: :cascade do |t|
+    t.integer "fee", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "back_id"
