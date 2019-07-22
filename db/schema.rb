@@ -48,9 +48,10 @@ ActiveRecord::Schema.define(version: 2019_07_21_024347) do
   end
 
   create_table "customers", force: :cascade do |t|
-    t.string "account_number"
-    t.string "name"
-    t.string "email"
+    t.string "account_number", null: false
+    t.string "name", null: false
+    t.string "email", null: false
+    t.string "access_token", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
