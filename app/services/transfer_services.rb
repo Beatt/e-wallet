@@ -17,7 +17,7 @@ class TransferServices
   private
 
   def with_funds?
-    @params[:value_in_cents].to_f < @customer.try(:balance)
+    @value_in_cents <= @customer.try(:balance)
   end
 
   def assign_values
