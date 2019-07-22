@@ -9,9 +9,9 @@ RSpec.describe 'Transfer services' do
   context 'when transfer is success' do
 
     it 'should transfer (x <= 1,000)' do
-      create_deposit(1000)
+      create_deposit(2000)
 
-      value_in_cents = 1000
+      value_in_cents = 500
       params = {
         value_in_cents: value_in_cents,
         customer_id: customer.id,
@@ -21,7 +21,7 @@ RSpec.describe 'Transfer services' do
 
       expect(transfer).not_to be_a_new(Back::Transfer)
       expect(transfer.id.present?).to be_truthy
-      expect(transfer.value_in_cents).to eq(962 * 100)
+      expect(transfer.value_in_cents).to eq(477 * 100)
       expect(transfer.tax_id.present?).to be_truthy
     end
 
@@ -104,7 +104,7 @@ RSpec.describe 'Transfer services' do
 
   def create_deposit(value)
     allow(Gateway).to receive(:auth?).and_return(true)
-    params = {value_in_cents: value, customer_id: customer.id, credit_card_id: customer.credit_cards.last.id}
+    params = {value_in_cents: value, customer_id: customer.id, credit_card_id: credit_card.id}
     DepositServices.new(params).process
   end
 
