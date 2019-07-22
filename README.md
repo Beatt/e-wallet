@@ -31,29 +31,30 @@ Evaluar la capacidad de análisis, definición de arquitectura y practicas de 
 // Customers
 {
     "id": 1,
-    "account_number": "935205",
-    "name": "Gabriel"
+    "account_number": "583036",
+    "name": "Gabriel",
+    "access_token": dnJRWlpXYTFwTXFGVENvb3hzdS9nOEdpbUxqOXdadU80ejRBS0JxUTVvREYwSHI2c211Q2tkbERoVE5WSkxJVi0tcmwwR3lkZ1pkNHNmbFdUQjVlRjBXUT09--4aa576e440e46ffb1c1f4b9d8a75a07003fa6530
 }
 {
     "id": 2,
-    "account_number": "637424",
-    "name": "Geovanni"
+    "account_number": "305133",
+    "name": "Geovanni",
+    "access_token": N2kzWHRCdWtMeU9jTzVNYVN0WGM1a0t6R01uZnZIdUVMVFQwLzVYTk5lM2FDWWhhclp1SFludDNHVFd2OHZ2WS0tNVRkV1ZmenIrT0dkR2RIcElsWklGQT09--b641e90a369365825d5580d9e95ab3ebdafeffed
 }
 </pre>
 <pre>
 // Credit cards
 {
-    "id": 2,
+    "id": 1,
     "customer_id": 1
 }
 {
-    "id": 1,
+    "id": 2,
     "customer_id": 2
 }
 </pre>
 
 <h2>¿Cómo usar?</h2>
-
 <p><a href="https://ewalletconekta.herokuapp.com/api/customers">Recurso customer (api/customers)</a></p>
 
 <pre>
@@ -68,7 +69,7 @@ api/customers
 </pre>
 <pre>
 // PATCH
-api/customers/:account_number
+api/customers/:account_number?token=:access_token
 {
 	"customer": {
 		"name": "Gabriel Jiménez",
@@ -78,14 +79,14 @@ api/customers/:account_number
 </pre>
 <pre>
 // GET 
-api/customers/:account_number
+api/customers/:account_number?token=:access_token
 </pre>
 
 <p><a href="https://ewalletconekta.herokuapp.com/api/customers/:account_number/credit_cards">Recurso credit card (api/customers/:account_number/credit_cards)</a></p>
 
 <pre>
 // POST
-api/customers/:account_number/credit_cards
+api/customers/:account_number/credit_cards?token=:access_token
 {
 	"credit_card": {
 		"brand": "visa",
@@ -99,8 +100,8 @@ api/customers/:account_number/credit_cards
 
 <pre>
 // GET
-api/customers/:account_number/credit_cards/:id
-api/customers/:account_number/credit_cards
+api/customers/:account_number/credit_cards/:id?token=:access_token
+api/customers/:account_number/credit_cards?token=:access_token
 </pre>
 
 <p><a href="https://ewalletconekta.herokuapp.com/api/customers/:account_number/backs">Recurso back (api/customers/:account_number/backs)</a></p>
@@ -109,7 +110,7 @@ api/customers/:account_number/credit_cards
 <p><em>credit_card_id: Tarjeta para abonar o hacer un cargo.</em></p>
 <pre>
 // POST
-api/customers/:account_number/backs?type=deposit
+api/customers/:account_number/backs?type=deposit&token=:access_token
 {
 	"back": {
 		"value_in_cents": 1000,
@@ -120,7 +121,7 @@ api/customers/:account_number/backs?type=deposit
 
 <pre>
 // POST
-api/customers/:account_number/backs?type=transfer
+api/customers/:account_number/backs?type=transfer&token=:access_token
 {
 	"back": {
 		"value_in_cents": 1000,
@@ -131,7 +132,7 @@ api/customers/:account_number/backs?type=transfer
 
 <pre>
 // POST
-api/customers/:account_number/backs?type=withdraw
+api/customers/:account_number/backs?type=withdraw&token=:access_token
 {
 	"back": {
 		"value_in_cents": 1000,
@@ -144,10 +145,10 @@ api/customers/:account_number/backs?type=withdraw
 // GET 
 
 - Historial de transacciones
-api/customers/:account_number/backs
+api/customers/:account_number/backs?token=:access_token
 
 - Balance
-api/customers/:account_number/backs?scope=balance
+api/customers/:account_number/backs?scope=balance&token=:access_token
 
 </pre>
 
