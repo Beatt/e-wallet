@@ -8,6 +8,8 @@ RSpec.describe 'Customer services' do
     it 'should create customer' do
       customer = CreateCustomerServices.new(params).create
       expect(customer).not_to be_a_new(Customer)
+      expect(customer.id.present?).to be_truthy
+      expect(customer.access_token.present?).to be_truthy
     end
 
     it 'should create number account' do

@@ -1,10 +1,16 @@
 class Customer < ActiveRecord::Base
+  before_save :set_token
+
   validates :name, :email, presence: true
   has_many :credit_cards
   has_many :back_deposits, class_name: 'Back::Deposit'
   has_many :back_transfers, class_name: 'Back::Transfer'
   has_many :back_withdraws, class_name: 'Back::Withdraw'
   has_many :backs, -> { select('backs.*, type AS kind, (value_in_cents / 100) AS value') }
+
+  def set_token
+    self.access_token = CryptServices.encrypt(SecureRandom.uuid)
+  end
 
   def income
     query = <<-SQL
